@@ -15,6 +15,7 @@ public class DecreaseProductStockOnOrderPlacedDomainEventHandler : INotification
 
     public async Task Handle(OrderPlacedDomainEvent notification, CancellationToken cancellationToken)
     {
+        throw new Exception();
         foreach (var orderItem in notification.Order.Items)
         {
             if (orderItem.Product.Stock.HasValue)
