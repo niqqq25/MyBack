@@ -1,13 +1,13 @@
-using MediatR;
 using MyBack.Application.Common.Interfaces.Persistence;
 using MyBack.Domain.Products;
 using MyBack.Domain.Products.ValueObjects;
+using MyBack.InProcessMessaging;
 
 namespace MyBack.Application.Products.Commands;
 
-public sealed record CreateProductCommand(string Name, string? Description, decimal Price, int? Stock) : IRequest
+public sealed record CreateProductCommand(string Name, string? Description, decimal Price, int? Stock) : ICommand
 {
-    public sealed class Handler : IRequestHandler<CreateProductCommand>
+    public sealed class Handler : ICommandHandler<CreateProductCommand>
     {
         private readonly IDbContext _dbContext;
         private readonly ISequentialGuidGenerator _sequentialGuidGenerator;

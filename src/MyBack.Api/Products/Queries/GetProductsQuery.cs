@@ -1,13 +1,13 @@
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyBack.Api.Products.Responses;
 using MyBack.Application.Common.Interfaces.Persistence;
+using MyBack.InProcessMessaging;
 
 namespace MyBack.Api.Products.Queries;
 
-public sealed class GetProductsQuery : IRequest<GetProductsResponse>
+public sealed class GetProductsQuery : IQuery<GetProductsResponse>
 {
-    public sealed class Handler : IRequestHandler<GetProductsQuery, GetProductsResponse>
+    public sealed class Handler : IQueryHandler<GetProductsQuery, GetProductsResponse>
     {
         private readonly IDbContext _dbContext;
 

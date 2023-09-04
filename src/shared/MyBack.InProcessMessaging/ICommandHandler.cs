@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace MyBack.Application.Common.InProcessMessaging.Commands;
+namespace MyBack.InProcessMessaging;
 
 public interface ICommandHandler<in TRequest> : IRequestHandler<TRequest> where TRequest : ICommand
 {

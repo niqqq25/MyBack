@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using MyBack.Domain.Orders;
 using MyBack.Domain.Products;
 
@@ -13,4 +14,8 @@ public interface IDbContext
     Task MigrateAsync();
     
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
+    
+    Task<IDbContextTransaction> BeginTransactionAsync(CancellationToken cancellationToken);
+
+    Task CommitTransactionAsync();
 }

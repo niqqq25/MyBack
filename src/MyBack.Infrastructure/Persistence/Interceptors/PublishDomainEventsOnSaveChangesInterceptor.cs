@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using MyBack.Domain.Common.Interfaces;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
+using MyBack.InProcessMessaging;
 
 namespace MyBack.Infrastructure.Persistence.Interceptors;
 
@@ -17,7 +17,7 @@ public class PublishDomainEventsOnSaveChangesInterceptor : SaveChangesIntercepto
     public override async ValueTask<InterceptionResult<int>> SavingChangesAsync(
         DbContextEventData eventData,
         InterceptionResult<int> result,
-        CancellationToken cancellationToken = new CancellationToken())
+        CancellationToken cancellationToken = new())
     {
         await PublishDomainEvents(eventData.Context, cancellationToken);
         return await base.SavingChangesAsync(eventData, result, cancellationToken);
@@ -53,7 +53,7 @@ public class PublishDomainEventsOnSaveChangesInterceptor : SaveChangesIntercepto
 
         foreach (var domainEvent in domainEvents)
         {
-            await _publisher.Publish(domainEvent, cancellationToken);
+            await _publisher.PublishDomainEvent(domainEvent, cancellationToken);
         }
     }
 }

@@ -1,7 +1,4 @@
-using MyBack.Application.Common.InProcessMessaging.Events;
-using MyBack.Domain.Common.Interfaces;
-
-namespace MyBack.Application.Common.InProcessMessaging;
+namespace MyBack.InProcessMessaging;
 
 public interface IPublisher
 {

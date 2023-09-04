@@ -1,6 +1,6 @@
-using MediatR;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
+using MyBack.InProcessMessaging;
 using Xunit;
 
 namespace MyBack.IntegrationTests;
@@ -17,18 +17,18 @@ public abstract class TestBase : IAsyncLifetime
     
     protected WebApplicationFactory<Program> Factory { get; }
     
-    protected async Task<TResponse> SendAsync<TResponse>(IRequest<TResponse> request)
+    protected async Task<TResponse> SendCommandAsync<TResponse>(ICommand<TResponse> request)
     {
         using var scope = Factory.Services.CreateScope();
         var mediator = scope.ServiceProvider.GetRequiredService<ISender>();
-        return await mediator.Send(request);
+        return await mediator.SendCommand(request);
     }
 
-    protected async Task SendAsync(IBaseRequest request)
+    protected async Task SendCommandAsync(ICommand request)
     {
         using var scope = Factory.Services.CreateScope();
         var mediator = scope.ServiceProvider.GetRequiredService<ISender>();
-        await mediator.Send(request);
+        await mediator.SendCommand(request);
     }
 
     public Task InitializeAsync() => Task.CompletedTask;

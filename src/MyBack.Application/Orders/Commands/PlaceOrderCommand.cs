@@ -1,15 +1,15 @@
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyBack.Application.Common.Interfaces.Persistence;
 using MyBack.Domain.Orders;
 using MyBack.Domain.Orders.ValueObjects;
 using MyBack.Domain.Products.ValueObjects;
+using MyBack.InProcessMessaging;
 
 namespace MyBack.Application.Orders.Commands;
 
-public sealed record PlaceOrderCommand(PlaceOrderCommand.Product[] Products, Address ShippingAddress) : IRequest
+public sealed record PlaceOrderCommand(PlaceOrderCommand.Product[] Products, Address ShippingAddress) : ICommand
 {
-    public sealed class Handler : IRequestHandler<PlaceOrderCommand>
+    public sealed class Handler : ICommandHandler<PlaceOrderCommand>
     {
         private readonly IDbContext _dbContext;
         private readonly ISequentialGuidGenerator _sequentialGuidGenerator;

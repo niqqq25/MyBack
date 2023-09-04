@@ -1,5 +1,6 @@
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using MyBack.Application.Common.Interfaces.Persistence;
 using MyBack.Domain.Common.Interfaces;
 using MyBack.Domain.Orders;
@@ -11,6 +12,7 @@ namespace MyBack.Infrastructure.Persistence;
 public class MyBackDbContext : DbContext, IDbContext
 {
     private readonly PublishDomainEventsOnSaveChangesInterceptor _publishDomainEventsInterceptor;
+    private IDbContextTransaction _transaction;
 
     public MyBackDbContext(
         DbContextOptions<MyBackDbContext> options,
@@ -26,6 +28,16 @@ public class MyBackDbContext : DbContext, IDbContext
     public async Task MigrateAsync()
     {
         await Database.MigrateAsync();
+    }
+
+    public Task<IDbContextTransaction> BeginTransactionAsync(CancellationToken cancellationToken)
+    {
+        return Database.BeginTransactionAsync(cancellationToken);
+    }
+
+    public Task CommitTransactionAsync()
+    {
+        return Database.CommitTransactionAsync();
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

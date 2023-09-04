@@ -21,7 +21,7 @@ public sealed class PlaceOrderCommandTests : ApplicationTestBase
     public async Task ProductDoesNotExist_ReturnsValidationError()
     {
         // Act
-        await SendAsync(
+        await SendCommandAsync(
             new PlaceOrderCommand(
                 new[] { new PlaceOrderCommand.Product(new ProductId(Guid.NewGuid()), 1) },
                 new Address("Street", "City", "Country", "ZipCode")));
@@ -52,7 +52,7 @@ public sealed class PlaceOrderCommandTests : ApplicationTestBase
         }
 
         // Act
-        await SendAsync(
+        await SendCommandAsync(
             new PlaceOrderCommand(
                 new[] { new PlaceOrderCommand.Product(productId, 1) },
                 shippingAddress));
@@ -98,7 +98,7 @@ public sealed class PlaceOrderCommandTests : ApplicationTestBase
         }
 
         // Act
-        await SendAsync(
+        await SendCommandAsync(
             new PlaceOrderCommand(
                 new[] { new PlaceOrderCommand.Product(productId, 1) },
                 shippingAddress));

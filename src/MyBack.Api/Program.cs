@@ -1,10 +1,9 @@
 using System.Reflection;
 using FluentValidation;
-using Microsoft.EntityFrameworkCore;
-using MyBack.Api;
 using MyBack.Application;
 using MyBack.Application.Common.Interfaces.Persistence;
 using MyBack.Infrastructure;
+using MyBack.InProcessMessaging;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,7 +20,7 @@ builder.Services.AddInfrastructureServices(builder.Configuration);
 
 builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
-builder.Services.AddMediatR(c => c.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly())); // TODO remove this
+builder.Services.AddInProcessMessaging(Assembly.GetExecutingAssembly());
 
 var app = builder.Build();
 

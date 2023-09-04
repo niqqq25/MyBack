@@ -1,13 +1,13 @@
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyBack.Application.Common.Interfaces.Persistence;
 using MyBack.Domain.Products.ValueObjects;
+using MyBack.InProcessMessaging;
 
 namespace MyBack.Application.Products.Commands;
 
-public sealed record UpdateProductCommand(ProductId Id, string? Name, string? Description, decimal? Price) : IRequest
+public sealed record UpdateProductCommand(ProductId Id, string? Name, string? Description, decimal? Price) : ICommand
 {
-    public sealed class Handler : IRequestHandler<UpdateProductCommand>
+    public sealed class Handler : ICommandHandler<UpdateProductCommand>
     {
         private readonly IDbContext _dbContext;
 

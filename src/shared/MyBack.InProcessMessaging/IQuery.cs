@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace MyBack.Application.Common.InProcessMessaging.Queries;
+namespace MyBack.InProcessMessaging;
 
 public interface IQuery<out T> : IRequest<T>
 {

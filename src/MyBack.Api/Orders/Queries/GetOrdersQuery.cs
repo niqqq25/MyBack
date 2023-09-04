@@ -1,12 +1,12 @@
-using MediatR;
 using MyBack.Api.Orders.Responses;
 using MyBack.Application.Common.Interfaces.Persistence;
+using MyBack.InProcessMessaging;
 
 namespace MyBack.Api.Orders.Queries;
 
-public sealed class GetOrdersQuery : IRequest<GetOrdersResponse>
+public sealed class GetOrdersQuery : IQuery<GetOrdersResponse>
 {
-    public sealed class Handler : IRequestHandler<GetOrdersQuery, GetOrdersResponse>
+    public sealed class Handler : IQueryHandler<GetOrdersQuery, GetOrdersResponse>
     {
         private readonly IDbContext _dbContext;
 

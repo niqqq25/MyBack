@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace MyBack.Application.Common.InProcessMessaging.Events;
+namespace MyBack.InProcessMessaging;
 
 public interface IIntegrationEventHandler<in TIntegrationEvent> : INotificationHandler<TIntegrationEvent>
     where TIntegrationEvent : IIntegrationEvent

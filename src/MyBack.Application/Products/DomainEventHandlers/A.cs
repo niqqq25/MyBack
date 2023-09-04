@@ -1,10 +1,10 @@
-using MediatR;
 using MyBack.Application.Common.Interfaces.Persistence;
 using MyBack.Domain.Orders.Events;
+using MyBack.InProcessMessaging;
 
 namespace MyBack.Application.Products.DomainEventHandlers;
 
-public class A : INotificationHandler<OrderPlacedDomainEvent>
+public class A : IDomainEventHandler<OrderPlacedDomainEvent>
 {
     private readonly IDbContext _dbContext;
 
